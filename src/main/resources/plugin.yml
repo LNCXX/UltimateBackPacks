@@ -1,0 +1,16 @@
+name: UltimateBackPacks
+version: 0.1-BETA
+author: LNC_XX
+main: me.lncxx.ultimatebackpacks.BackPacks
+description: BackPack-Plugin
+commands:
+  backpack:
+    aliases:
+      - bp
+      - backpacks
+      - pack
+      - ubackpack
+      - ubackpacks
+      - ultimatebackpack
+      - ultimatebackpacks
+      - ubp

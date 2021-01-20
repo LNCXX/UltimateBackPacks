@@ -1,0 +1,19 @@
+#Einstellungen
+
+#Allgemein
+MySQL: false
+
+#Permissions
+openBackPackPermission: 'ultimatebackpacks.openbackpack'
+openBackPackOtherPermission: 'ultimatebackpacks.openbackpack.other'
+
+#Messsages
+prefix: '&7[&cUBackPacks&7] '
+noPermission: '%prefix% &cDazu hast du keine Rechte!'
+notAllowed: 'Nur ein Spieler kann ein BackPack benutzen!'
+inventoryTitle: '&eDein BackPack'
+syntax: '%prefix% &cBitte benutze &a/backpack&c!'
+playerNotOnline: '%prefix% Dieser Spieler ist nicht online!'
+reloaded: '%prefix% &aUltimateBackPacks wurde neugeladen!'
+clear: '%prefix% &aDein BackPack wurde geleert!'
+clearOther: '%prefix% &aDas BackPack von &c%player% &awurde geleert!'
