@@ -6,6 +6,9 @@ MySQL: false
 #Permissions
 openBackPackPermission: 'ultimatebackpacks.openbackpack'
 openBackPackOtherPermission: 'ultimatebackpacks.openbackpack.other'
+clearBackPackPermission: 'ultimatebackpacks.clearbackpack'
+clearBackPackOtherPermission: 'ultimatebackpacks.clearbackpack.other'
+reloadBackPacksPermission: 'ultimatebackpacks.reload'
 
 #Messsages
 prefix: '&7[&cUBackPacks&7] '

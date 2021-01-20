@@ -29,7 +29,7 @@ public class BackPackCommand implements TabExecutor {
 
 
             if (args.length == 0) {
-                if (player.hasPermission(BackPacks.getPlugin().getConfig().getString("openBackPackPermission"))) {
+                if (player.hasPermission(Var.getOpenBackPackPermission())) {
 
                     if (Var.getMySQL()) {
                         if (!BackPacksDB.isUserExists(player.getPlayer().getUniqueId()))
@@ -62,12 +62,15 @@ public class BackPackCommand implements TabExecutor {
                     player.sendMessage(Var.getNoPermission());
             } else if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
-                    BackPacks.getPlugin().reloadConfig();
-                    for (Player all : Bukkit.getOnlinePlayers())
-                        new DataFile(all.getUniqueId().toString()).reload();
-                    MySQLFile.reload();
-                    MySQL.connect();
-                    player.sendMessage(Var.getReload());
+                    if(player.hasPermission(Var.getReloadPermission())) {
+                        BackPacks.getPlugin().reloadConfig();
+                        for (Player all : Bukkit.getOnlinePlayers())
+                            new DataFile(all.getUniqueId().toString()).reload();
+                        MySQLFile.reload();
+                        MySQL.connect();
+                        player.sendMessage(Var.getReload());
+                    }else
+                        player.sendMessage(Var.getNoPermission());
                 } else if (args[0].equalsIgnoreCase("info")) {
                     player.sendMessage("§f§m-------------------------------------");
                     player.sendMessage("§8» §cUltimateBackPacks");
@@ -75,15 +78,18 @@ public class BackPackCommand implements TabExecutor {
                     player.sendMessage("§8» §cVersion: §a" + Bukkit.getPluginManager().getPlugin(BackPacks.getPlugin().getName()).getDescription().getVersion());
                     player.sendMessage("§f§m-------------------------------------");
                 } else if (args[0].equalsIgnoreCase("clear")) {
-                    if (Var.getMySQL())
-                        BackPacksDB.setBackPack(player.getUniqueId(), BackPackItemManager.invToBase64(tempInventory)[0]);
-                    else {
-                        DataFile dataFile = new DataFile(player.getUniqueId().toString());
-                        String[] values = BackPackItemManager.invToBase64(tempInventory);
-                        dataFile.getConfig().set("backpack", values[0]);
-                        dataFile.save();
-                    }
-                    player.sendMessage(Var.getClear());
+                    if (player.hasPermission(Var.getClearBackPackPermission())) {
+                        if (Var.getMySQL())
+                            BackPacksDB.setBackPack(player.getUniqueId(), BackPackItemManager.invToBase64(tempInventory)[0]);
+                        else {
+                            DataFile dataFile = new DataFile(player.getUniqueId().toString());
+                            String[] values = BackPackItemManager.invToBase64(tempInventory);
+                            dataFile.getConfig().set("backpack", values[0]);
+                            dataFile.save();
+                        }
+                        player.sendMessage(Var.getClear());
+                    }else
+                        player.sendMessage(Var.getNoPermission());
                 } else if (args[0].equalsIgnoreCase("help")) {
                     player.sendMessage("§f§m-------------------------------------");
                     player.sendMessage("§8» §cUltimateBackPacks");
@@ -133,22 +139,23 @@ public class BackPackCommand implements TabExecutor {
                         player.sendMessage(Var.getNoPermission());
                 }
             } else if (args.length == 2) {
-                if (args[0].equalsIgnoreCase("clear")) {
-                    Player target = Bukkit.getPlayer(args[1]);
-                    if (target != null) {
-                        if (Var.getMySQL())
-                            BackPacksDB.setBackPack(target.getUniqueId(), BackPackItemManager.invToBase64(tempInventory)[0]);
-                        else {
-                            DataFile dataFile = new DataFile(target.getUniqueId().toString());
-                            String[] values = BackPackItemManager.invToBase64(tempInventory);
-                            dataFile.getConfig().set("backpack", values[0]);
-                            dataFile.save();
-                        }
-                        player.sendMessage(Var.getClearOther(player));
+                if (player.hasPermission(""))
+                    if (args[0].equalsIgnoreCase("clear")) {
+                        Player target = Bukkit.getPlayer(args[1]);
+                        if (target != null) {
+                            if (Var.getMySQL())
+                                BackPacksDB.setBackPack(target.getUniqueId(), BackPackItemManager.invToBase64(tempInventory)[0]);
+                            else {
+                                DataFile dataFile = new DataFile(target.getUniqueId().toString());
+                                String[] values = BackPackItemManager.invToBase64(tempInventory);
+                                dataFile.getConfig().set("backpack", values[0]);
+                                dataFile.save();
+                            }
+                            player.sendMessage(Var.getClearOther(player));
+                        } else
+                            player.sendMessage(Var.getPlayerNotOnline());
                     } else
-                        player.sendMessage(Var.getPlayerNotOnline());
-                } else
-                    player.sendMessage(Var.getSyntax());
+                        player.sendMessage(Var.getSyntax());
             } else
                 player.sendMessage(Var.getSyntax());
 

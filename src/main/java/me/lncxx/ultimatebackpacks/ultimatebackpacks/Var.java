@@ -16,6 +16,18 @@ public class Var {
         return BackPacks.getPlugin().getConfig().getString("openBackPackOtherPermission");
     }
 
+    public static String getReloadPermission() {
+        return BackPacks.getPlugin().getConfig().getString("openBackPackOtherPermission");
+    }
+
+    public static String getClearBackPackPermission() {
+        return BackPacks.getPlugin().getConfig().getString("ultimatebackpacks.clearbackpack");
+    }
+
+    public static String getClearBackPackOtherPermission() {
+        return BackPacks.getPlugin().getConfig().getString("ultimatebackpacks.clearbackpack.other");
+    }
+
     public static Boolean getMySQL() {
         return BackPacks.getPlugin().getConfig().getBoolean("MySQL");
     }
